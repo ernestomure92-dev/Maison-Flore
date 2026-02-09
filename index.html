@@ -25,7 +25,6 @@
       transition: background 0.4s ease; scroll-behavior: smooth;
     }
     .container{max-width:1100px; margin:0 auto; padding:0 16px}
-    .visualmente-oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
     /* ===== HEADER & HERO ===== */
     header{position:sticky; top:0; z-index:20; background:rgba(255,255,255,0.8); backdrop-filter:blur(10px); border-bottom:1px solid var(--borde)}
@@ -42,9 +41,10 @@
     /* ===== BOTONES & FILTROS ===== */
     .btn{display:inline-block; padding:14px 22px; border-radius:14px; font-weight:700; text-decoration:none; transition:0.2s; border:none; cursor:pointer; text-align:center}
     .btn-secondary{background:var(--verde); color:#fff}
+    .btn-secondary:hover{background:var(--verde-dark); transform: scale(1.02)}
     .btn-outline{border:1px solid var(--borde); background:#fff}
     
-    .search input{width:100%; padding:14px; border-radius:14px; border:1px solid var(--borde); margin: 20px 0 10px 0; font-size:16px}
+    .search input{width:100%; padding:14px; border-radius:14px; border:1px solid var(--borde); margin: 20px 0 10px 0; font-size:16px; outline-color: var(--verde)}
     
     .badges{display:flex; gap:8px; overflow-x:auto; padding:10px 0; scrollbar-width: none}
     .badge{padding:10px 18px; border:1px solid var(--borde); border-radius:999px; white-space:nowrap; background:#fff; cursor:pointer; font-weight:500; transition: 0.2s}
@@ -52,11 +52,16 @@
 
     /* ===== PRODUCTOS ===== */
     .grid{display:grid; gap:16px; margin-top:20px}
-    .card{background:#fff; border:1px solid var(--borde); border-radius:20px; overflow:hidden; transition: transform 0.3s}
-    .card:hover{transform: translateY(-5px)}
+    .card{background:#fff; border:1px solid var(--borde); border-radius:20px; overflow:hidden; transition: 0.3s; animation: fadeIn 0.5s ease forwards}
+    .card:hover{transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05)}
     .thumb{aspect-ratio:1/1; background:#f9f9f9; position:relative}
     .thumb img{width:100%; height:100%; object-fit:cover}
     .price{color:var(--verde); font-weight:800; font-size:1.2rem}
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     /* ===== RESEÑAS ===== */
     .reviews-section{background:rgba(255,255,255,0.5); padding:60px 0; margin-top:40px; border-top:1px solid var(--borde)}
@@ -64,7 +69,8 @@
     .review-card{background:#fff; padding:25px; border-radius:20px; border:1px solid var(--borde)}
     .stars{color:var(--amarillo); margin-bottom:10px}
 
-    .whatsapp-fab{position:fixed; right:20px; bottom:20px; background:#25D366; color:#fff; border-radius:999px; padding:16px 24px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 8px 20px rgba(0,0,0,0.1)}
+    .whatsapp-fab{position:fixed; right:20px; bottom:20px; background:#25D366; color:#fff; border-radius:999px; padding:16px 24px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 8px 20px rgba(0,0,0,0.1); transition: 0.3s}
+    .whatsapp-fab:hover{transform: scale(1.1)}
 
     @media(min-width:768px){
       .hero-grid{grid-template-columns:1.2fr 1fr; align-items:center}
@@ -81,7 +87,7 @@
   <header>
     <div class="container header-wrap">
       <a href="#" class="brand">
-        <img src="assets/logo.png" alt="R&S" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3062/3062223.png'">
+        <img src="assets/logo.png" alt="Maison & Flore Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3062/3062223.png'">
         <span>Maison &amp; Flore</span>
       </a>
       <nav style="display:flex; gap:15px">
@@ -112,7 +118,7 @@
         </div>
       </div>
       <div class="img-container">
-        <img src="assets/hero/jorge.png" alt="Arreglo del día">
+        <img src="assets/hero/jorge.png" alt="Arreglo del día" onerror="this.src='https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=600'">
       </div>
     </div>
   </section>
@@ -133,27 +139,21 @@
         </article>
         <article class="review-card">
           <div class="stars">★★★★★</div>
-          <p>"El señor que entregó las flores venía pisteando y me invitó una chela!"</p>
-          <small><strong>- Emi .</strong></small>
-        </article>
-        <article class="review-card">
-          <div class="stars">★★★★★</div>
           <p>"Me salvaron con el envío express, llegó en menos de 3 horas."</p>
           <small><strong>- Chuchin.</strong></small>
         </article>
         <article class="review-card">
           <div class="stars">★★★★★</div>
-          <p>"El que desarrollo esta pagina es un genio. "</p>
+          <p>"El diseño de la página es súper intuitivo y fácil de usar."</p>
           <small><strong>- Tito Capotito</strong></small>
         </article>
-
       </div>
     </div>
   </section>
 
   <footer style="padding:60px 0; text-align:center; color:var(--gris-600)">
     <div class="container">
-      <p><strong>Rabbits & Sunflowers</strong></p>
+      <p><strong>Maison & Flore</strong></p>
       <small>© <span id="year"></span> Hecho con amor en CDMX 🌷</small>
     </div>
   </footer>
@@ -161,114 +161,131 @@
   <a id="waFab" class="whatsapp-fab" target="_blank">WhatsApp 💬</a>
 
   <script>
-    // 1. UTILIDADES Y DATOS
+    /**
+     * Maison & Flore - Script de Control
+     */
+    
+    // 1. SELECTORES Y CONFIGURACIÓN
     const $ = s => document.querySelector(s);
-    const WA_NUMBER = "5651447982"; // Tu número aquí
+    const WA_NUMBER = "5651447982";
 
     const CATALOGO = [
       { 
-        id: "te-pienso", 
         titulo: "Te pienso 🌻", 
         precio: 599, 
         categoria: ["cumple", "express", "regalos"], 
-        // Cambiamos el link de internet por tu ruta local:
-        img: "assets/catalogos/flores rosas.jpg", 
-        express: true 
+        img: "assets/catalogos/flores rosas.jpg" 
       },
       { 
-        id: "bouquet-rs", 
         titulo: "Bouquet R&S🌹", 
         precio: 599, 
         categoria: ["aniversario","express"], 
-        // Cambiamos el link de internet por tu ruta local:
-        img: "assets/catalogos/flores_rojas.jpg", 
-        express: true 
+        img: "assets/catalogos/flores_rojas.jpg" 
       },  
       { 
-        id: "dulce-amor", 
         titulo: "Dulce Amor 🍫", 
         precio: 599, 
         categoria: ["aniversario","express","cumple"], 
-        // Cambiamos el link de internet por tu ruta local:
-        img: "assets/catalogos/flores_combinadas.jpg", 
-        express: true 
+        img: "assets/catalogos/flores_combinadas.jpg" 
       },     
       { 
-        id: "azulito", 
         titulo: "Amor azul 🫗", 
         precio: 100, 
         categoria: ["aniversario","express","cumple","regalos"], 
-        // Cambiamos el link de internet por tu ruta local:
-        img: "assets/catalogos/azul.jpg", 
-        express: true 
+        img: "assets/catalogos/azul.jpg" 
       },       
-      { titulo:"Primavera ✨", precio:1200, cat:["cumple","regalos"], img:"https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600" },
-      { titulo:"Caja de Rosas 🎁", precio:1100, cat:["aniversario","regalos"], img:"https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=600" }
+      { 
+        titulo:"Primavera ✨", 
+        precio:1200, 
+        categoria:["cumple","regalos"], 
+        img:"https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600" 
+      },
+      { 
+        titulo:"Caja de Rosas 🎁", 
+        precio:1100, 
+        categoria:["aniversario","regalos"], 
+        img:"https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=600" 
+      }
     ];
 
-    // 2. RENDERIZADO CON FILTROS
+    // 2. FUNCIÓN DE RENDERIZADO
     function render(filtro = "all", busqueda = ""){
       const wrap = $("#productos");
       if(!wrap) return;
+      
       wrap.innerHTML = "";
       
       const filtrados = CATALOGO.filter(p => {
-        const matchCat = filtro === "all" || p.cat.includes(filtro);
+        // Normalizamos búsqueda y categorías para evitar errores de case-sensitive
+        const matchCat = filtro === "all" || p.categoria.includes(filtro);
         const matchSearch = p.titulo.toLowerCase().includes(busqueda.toLowerCase());
         return matchCat && matchSearch;
       });
 
       if(filtrados.length === 0) {
-        wrap.innerHTML = "<p style='grid-column:1/-1; text-align:center'>No encontramos ese arreglo, ¡pero podemos diseñarlo para ti!</p>";
+        wrap.innerHTML = `<p style='grid-column:1/-1; text-align:center; padding:20px; color:var(--gris-600)'>
+          No encontramos arreglos con "${busqueda}". ¡Escríbenos y te armamos uno personalizado!
+        </p>`;
         return;
       }
 
       filtrados.forEach(p => {
         const div = document.createElement("div");
         div.className = "card";
+        // encodeURIComponent asegura que el link de WhatsApp no se rompa con caracteres especiales
+        const waMsg = encodeURIComponent(`¡Hola! Me encantó el arreglo "${p.titulo}". ¿Tienen disponibilidad?`);
+        
         div.innerHTML = `
-          <div class="thumb"><img src="${p.img}" alt="${p.titulo}" loading="lazy"></div>
+          <div class="thumb">
+            <img src="${p.img}" alt="${p.titulo}" loading="lazy" onerror="this.src='https://placehold.co/400x400?text=Floreria'">
+          </div>
           <div style="padding:18px">
             <h4 style="margin:0">${p.titulo}</h4>
             <p class="price">$${p.precio} MXN</p>
             <a class="btn btn-secondary" style="width:100%; display:block; font-size:14px" 
-               href="https://wa.me/${WA_NUMBER}?text=Hola! Me interesa el arreglo: ${p.titulo}" target="_blank">Pedir 💬</a>
+               href="https://wa.me/${WA_NUMBER}?text=${waMsg}" target="_blank">Pedir 💬</a>
           </div>
         `;
         wrap.appendChild(div);
       });
     }
 
-    // 3. LOGICA DE INTERFAZ
+    // 3. EVENTOS E INICIALIZACIÓN
     document.addEventListener("DOMContentLoaded", () => {
-      // Tema estacional
+      
+      // Año Actual
+      if($("#year")) $("#year").textContent = new Date().getFullYear();
+
+      // Lógica de San Valentín (Febrero 1-14)
       const hoy = new Date();
-      if(hoy.getMonth() === 1 && hoy.getDate() <= 14) document.documentElement.setAttribute('data-theme', 'sanvalentin');
+      if(hoy.getMonth() === 1 && hoy.getDate() <= 14) {
+        document.documentElement.setAttribute('data-theme', 'sanvalentin');
+      }
 
-      // Año
-      $("#year").textContent = new Date().getFullYear();
-
-      // Buscador
+      // Buscador en tiempo real
       $("#buscar").addEventListener("input", e => {
-        const activeCat = $(".badge.active").dataset.filter;
+        const activeCat = $(".badge.active")?.dataset.filter || "all";
         render(activeCat, e.target.value);
       });
 
-      // Filtros (Chips)
+      // Filtros por Categoría
       $("#filtros").addEventListener("click", e => {
         const btn = e.target.closest(".badge");
         if(!btn) return;
+
         document.querySelectorAll(".badge").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
+        
         render(btn.dataset.filter, $("#buscar").value);
       });
 
-      // WhatsApp Links
-      const msg = encodeURIComponent("Hola! Quiero informes sobre flores 🌻");
-      $("#ctaHero").href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
-      $("#waFab").href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+      // Configuración de botones de WhatsApp fijos
+      const defaultMsg = encodeURIComponent("Hola! Vengo de la página web y quiero informes sobre sus flores 🌻");
+      if($("#ctaHero")) $("#ctaHero").href = `https://wa.me/${WA_NUMBER}?text=${defaultMsg}`;
+      if($("#waFab")) $("#waFab").href = `https://wa.me/${WA_NUMBER}?text=${defaultMsg}`;
 
-      render(); // Carga inicial
+      // Render inicial
+      render();
     });
   </script>
 </body>
