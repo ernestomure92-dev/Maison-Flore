@@ -717,7 +717,7 @@
     .step-number {
       width: 60px;
       height: 60px;
-      background: var(--color-primary);
+      background: var(--colorcolor-primary);
       color: white;
       border-radius: 50%;
       display: flex;
@@ -1140,7 +1140,7 @@
     <div class="container header-inner">
       <a href="#" class="brand">
         <div class="logo-wrapper">
-          <img src="assets/logo1.png" alt="Maison Floral">
+          <img src="assets/logo1.png?v=2" alt="Maison Floral">
         </div>
         <span>Maison Floral</span>
       </a>
@@ -1185,7 +1185,7 @@
       <div class="hero-visual" onclick="openLightbox(0)">
         <div class="hero-image-wrapper">
           <span class="hero-badge">🔥 Más pedido</span>
-          <img src="assets/catalogos/te-pienso.jpeg" 
+          <img src="assets/catalogos/te-pienso.jpeg?v=2" 
                alt="Arreglo Te Pienso - Girasoles"
                onerror="this.src='https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800'">
         </div>
@@ -1280,7 +1280,7 @@
             <div class="contact-icon">📱</div>
             <div>
               <strong>WhatsApp</strong><br>
-              <a href="https://wa.me/5573790221" style="color: var(--color-primary);">56 5144 7982</a>
+              <a href="https://wa.me/5573790221" style="color: var(--color-primary);">55 7379 0221</a>
             </div>
           </div>
           <div class="contact-item">
@@ -1402,14 +1402,14 @@
     };
 
     // ===== DATA =====
-    // RUTAS CORREGIDAS según tu estructura de GitHub
+    // RUTAS CORREGIDAS con ?v=2 para forzar actualización del cache
     const CATALOGO = [
       { 
         id: 'te-pienso',  
         titulo: 'Te pienso 🌹',     
         precio: 300,  
         cat: ['cumple', 'express', 'regalos'], 
-        img: 'assets/catalogos/te-pienso.jpeg',
+        img: 'assets/catalogos/te-pienso.jpeg?v=2',
         badge: 'Más vendido'
       },
       { 
@@ -1417,7 +1417,7 @@
         titulo: 'Bouquet 🌺',    
         precio: 700,  
         cat: ['aniversario', 'express'],      
-        img: 'assets/catalogos/bouquet.jpeg',  // ← CORREGIDO: era bouquet-rs.jpeg
+        img: 'assets/catalogos/bouquet.jpeg?v=2',
         badge: null
       },
       { 
@@ -1425,7 +1425,7 @@
         titulo: 'Dulce Amor 🍫💖',    
         precio: 'Desde 100',  
         cat: ['aniversario', 'express', 'cumple'], 
-        img: 'assets/catalogos/dulce-amor.jpeg',
+        img: 'assets/catalogos/dulce-amor.jpeg?v=2',
         badge: 'Nuevo'
       },
       { 
@@ -1433,7 +1433,7 @@
         titulo: 'Inolvidable 🌼',     
         precio: 250,  
         cat: ['aniversario', 'express', 'regalos'], 
-        img: 'assets/catalogos/amor-azul.jpeg',
+        img: 'assets/catalogos/amor-azul.jpeg?v=2',
         badge: 'Especial'
       },
       { 
@@ -1441,7 +1441,7 @@
         titulo: 'Primavera 🌻',     
         precio: 300, 
         cat: ['cumple', 'regalos'],           
-        img: 'assets/catalogos/primavera.jpeg',
+        img: 'assets/catalogos/primavera.jpeg?v=2',
         badge: 'Premium'
       },
       { 
@@ -1449,7 +1449,7 @@
         titulo: 'Por ti 🌷', 
         precio: 1100, 
         cat: ['aniversario', 'regalos'],      
-        img: 'assets/catalogos/caja-rosas.jpeg',
+        img: 'assets/catalogos/caja-rosas.jpeg?v=2',
         badge: null
       }
     ];
