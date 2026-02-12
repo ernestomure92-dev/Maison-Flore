@@ -146,41 +146,42 @@
       transition: transform 0.3s ease;
     }
     .brand:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
     
     /* Contenedor del logo con efectos especiales */
     .logo-wrapper {
       position: relative;
-      width: 85px;
-      height: 85px;
+      width: 75px;
+      height: 75px;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
     
     /* Círculo decorativo animado detrás del logo */
     .logo-wrapper::before {
       content: '';
       position: absolute;
-      inset: -8px;
+      inset: -6px;
       border-radius: 50%;
       background: conic-gradient(from 0deg, var(--color-primary), var(--color-accent), var(--color-primary));
       animation: rotate 4s linear infinite;
       opacity: 0.6;
-      filter: blur(8px);
+      filter: blur(6px);
     }
     
     /* Segundo círculo para efecto de profundidad */
     .logo-wrapper::after {
       content: '';
       position: absolute;
-      inset: -4px;
+      inset: -3px;
       border-radius: 50%;
       background: conic-gradient(from 180deg, var(--color-accent), var(--color-primary), var(--color-accent));
       animation: rotate 3s linear infinite reverse;
       opacity: 0.4;
-      filter: blur(4px);
+      filter: blur(3px);
     }
     
     @keyframes rotate {
@@ -189,35 +190,35 @@
     }
     
     .brand img {
-      width: 85px;
-      height: 85px;
+      width: 75px;
+      height: 75px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid white;
+      border: 3px solid white;
       box-shadow: 
-        0 8px 32px rgba(232, 92, 122, 0.4),
-        0 0 0 4px var(--color-accent),
-        inset 0 0 20px rgba(255,255,255,0.2);
+        0 6px 24px rgba(232, 92, 122, 0.35),
+        0 0 0 3px var(--color-accent),
+        inset 0 0 15px rgba(255,255,255,0.2);
       position: relative;
       z-index: 2;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .brand:hover img {
-      transform: scale(1.15) rotate(10deg);
+      transform: scale(1.1) rotate(8deg);
       box-shadow: 
-        0 12px 40px rgba(232, 92, 122, 0.6),
-        0 0 0 6px var(--color-primary),
-        inset 0 0 30px rgba(255,255,255,0.3);
+        0 10px 35px rgba(232, 92, 122, 0.5),
+        0 0 0 5px var(--color-primary),
+        inset 0 0 25px rgba(255,255,255,0.3);
     }
     
     /* Efecto de brillo en hover */
     .brand::after {
       content: '✨';
       position: absolute;
-      left: -10px;
-      top: -5px;
-      font-size: 1.5rem;
+      left: -8px;
+      top: -4px;
+      font-size: 1.25rem;
       opacity: 0;
       transform: scale(0) rotate(-45deg);
       transition: all 0.4s ease;
@@ -244,6 +245,7 @@
       background-clip: text;
       position: relative;
       letter-spacing: -0.5px;
+      white-space: nowrap;
     }
     
     /* Subrayado animado */
@@ -1036,23 +1038,64 @@
       .lightbox-next { right: 10px; }
       .lightbox-caption { font-size: 1.2rem; }
       
-      /* Logo más pequeño en móvil pero aún prominente */
+      /* ===== AJUSTES MÓVIL PARA EL LOGO ===== */
+      .header-inner {
+        padding: 0.5rem 0;
+      }
+      
       .brand {
-        font-size: 1.25rem;
-        gap: 0.875rem;
+        font-size: 1.1rem;
+        gap: 0.625rem;
+        transform: none !important;
       }
+      
+      .brand:hover {
+        transform: none !important;
+      }
+      
       .logo-wrapper {
-        width: 60px;
-        height: 60px;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
       }
-      .brand img {
-        width: 60px;
-        height: 60px;
-        border-width: 3px;
+      
+      .logo-wrapper::before {
+        inset: -4px;
+        filter: blur(4px);
+        animation-duration: 6s;
       }
-      .logo-wrapper::before,
+      
       .logo-wrapper::after {
-        inset: -6px;
+        inset: -2px;
+        filter: blur(2px);
+        animation-duration: 5s;
+      }
+      
+      .brand img {
+        width: 44px;
+        height: 44px;
+        border-width: 2px;
+        box-shadow: 
+          0 4px 12px rgba(232, 92, 122, 0.3),
+          0 0 0 2px var(--color-accent),
+          inset 0 0 10px rgba(255,255,255,0.2);
+      }
+      
+      .brand:hover img {
+        transform: scale(1.05);
+        box-shadow: 
+          0 6px 18px rgba(232, 92, 122, 0.4),
+          0 0 0 3px var(--color-primary),
+          inset 0 0 15px rgba(255,255,255,0.3);
+      }
+      
+      /* Ocultar efectos elaborados en móvil */
+      .brand::after {
+        display: none;
+      }
+      
+      .brand span::after {
+        display: none;
       }
     }
 
@@ -1406,7 +1449,7 @@
         precio: 1100, 
         cat: ['aniversario', 'regalos'],      
         img: 'assets/catalogos/caja-rosas.jpeg',
-        badge: null
+        badge: 'Temporada'
       }
     ];
 
