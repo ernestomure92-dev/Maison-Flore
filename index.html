@@ -140,7 +140,6 @@
       transform: scale(1.02);
     }
     
-    /* Contenedor del logo con efectos especiales */
     .logo-wrapper {
       position: relative;
       width: 75px;
@@ -151,7 +150,6 @@
       flex-shrink: 0;
     }
     
-    /* Círculo decorativo animado detrás del logo */
     .logo-wrapper::before {
       content: '';
       position: absolute;
@@ -163,7 +161,6 @@
       filter: blur(6px);
     }
     
-    /* Segundo círculo para efecto de profundidad */
     .logo-wrapper::after {
       content: '';
       position: absolute;
@@ -203,7 +200,6 @@
         inset 0 0 25px rgba(255,255,255,0.3);
     }
     
-    /* Efecto de brillo en hover */
     .brand::after {
       content: '💞';
       position: absolute;
@@ -228,7 +224,6 @@
       to { transform: scale(1.2) rotate(15deg); }
     }
     
-    /* Texto del brand con gradiente */
     .brand span {
       background: linear-gradient(135deg, var(--color-title) 0%, var(--color-primary) 100%);
       -webkit-background-clip: text;
@@ -239,7 +234,6 @@
       white-space: nowrap;
     }
     
-    /* Subrayado animado */
     .brand span::after {
       content: '';
       position: absolute;
@@ -509,22 +503,128 @@
       box-shadow: var(--shadow-xl);
     }
 
+    /* ===== CARRUSEL EN PRODUCTOS ===== */
     .product-image {
       position: relative;
       aspect-ratio: 1;
       overflow: hidden;
       background: #f5f5f5;
-      cursor: zoom-in;
+      cursor: pointer;
     }
-    .product-image img {
+    
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+    }
+    
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    
+    .carousel-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s;
     }
-    .product-card:hover .product-image img {
-      transform: scale(1.1);
+    
+    /* Controles del carrusel */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.95);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--color-primary);
+      opacity: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 3;
     }
+    
+    .product-card:hover .carousel-btn {
+      opacity: 1;
+    }
+    
+    .carousel-btn:hover {
+      background: var(--color-primary);
+      color: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .carousel-btn.prev { left: 8px; }
+    .carousel-btn.next { right: 8px; }
+    
+    /* Indicadores */
+    .carousel-indicators {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .product-card:hover .carousel-indicators {
+      opacity: 1;
+    }
+    
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.6);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+      background: white;
+      transform: scale(1.3);
+      box-shadow: 0 0 0 2px var(--color-primary);
+    }
+    
+    /* Contador de imágenes */
+    .carousel-counter {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .product-card:hover .carousel-counter {
+      opacity: 1;
+    }
+
     .product-badge {
       position: absolute;
       top: 0.75rem;
@@ -537,6 +637,7 @@
       font-weight: 700;
       z-index: 2;
     }
+    
     .product-overlay {
       position: absolute;
       inset: 0;
@@ -546,6 +647,7 @@
       display: flex;
       align-items: flex-end;
       padding: 1rem;
+      pointer-events: none;
     }
     .product-card:hover .product-overlay {
       opacity: 1;
@@ -582,7 +684,7 @@
     }
     .empty-state-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.5; }
 
-    /* ===== LIGHTBOX CORREGIDO ===== */
+    /* ===== LIGHTBOX ===== */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -708,7 +810,7 @@
     .step-number {
       width: 60px;
       height: 60px;
-      background: var(--colorcolor-primary);
+      background: var(--color-primary);
       color: white;
       border-radius: 50%;
       display: flex;
@@ -1080,13 +1182,26 @@
           inset 0 0 15px rgba(255,255,255,0.3);
       }
       
-      /* Ocultar efectos elaborados en móvil */
       .brand::after {
         display: none;
       }
       
       .brand span::after {
         display: none;
+      }
+
+      /* Carrusel en móvil: controles siempre visibles */
+      .carousel-btn {
+        opacity: 1;
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+      }
+      .carousel-indicators {
+        opacity: 1;
+      }
+      .carousel-counter {
+        opacity: 1;
       }
     }
 
@@ -1389,81 +1504,233 @@
     };
 
     // ===== DATA =====
-    // RUTAS CORREGIDAS con ?v=2 para forzar actualización del cache
+    // Configuración de productos con carruseles
+    // Cada producto tiene:
+    // - id: identificador único (nombre de carpeta en assets/galerias/)
+    // - titulo: nombre del arreglo
+    // - precio: precio o rango
+    // - cat: categorías para filtros
+    // - badge: etiqueta especial (opcional)
+    // - imagenes: array de rutas de imágenes (se genera dinámicamente)
+    
     const CATALOGO = [
       { 
         id: 'te-pienso',  
         titulo: 'Te pienso 🌹',     
         precio: 300,  
         cat: ['cumple', 'express', 'regalos'], 
-        img: 'assets/catalogos/te-pienso.jpeg?v=2',
-        badge: 'Más vendido'
+        badge: 'Más vendido',
+        imagenes: [] // Se llena dinámicamente
       },
       { 
-        id: 'bouquet-rs', 
+        id: 'bouquet', 
         titulo: 'Bouquet 🌺',    
         precio: 700,  
         cat: ['aniversario', 'express'],      
-        img: 'assets/catalogos/bouquet.jpeg?v=2',
-        badge: null
+        badge: null,
+        imagenes: []
       },
       { 
         id: 'dulce-amor', 
         titulo: 'Dulce Amor 🍫💖',    
         precio: 'Desde 100',  
         cat: ['aniversario', 'express', 'cumple'], 
-        img: 'assets/catalogos/dulce-amor.jpeg?v=2',
-        badge: 'Nuevo'
+        badge: 'Nuevo',
+        imagenes: []
       },
       { 
         id: 'amor-azul',    
         titulo: 'Inolvidable 🌼',     
         precio: 250,  
         cat: ['aniversario', 'express', 'regalos'], 
-        img: 'assets/catalogos/amor-azul.jpeg?v=2',
-        badge: 'Especial'
+        badge: 'Especial',
+        imagenes: []
       },
       { 
         id: 'primavera',  
         titulo: 'Primavera 🌻',     
         precio: 300, 
         cat: ['cumple', 'regalos'],           
-        img: 'assets/catalogos/primavera.jpeg?v=2',
-        badge: 'Premium'
+        badge: 'Premium',
+        imagenes: []
       },
       { 
         id: 'caja-rosas', 
         titulo: 'Por ti 🌷', 
         precio: 1100, 
         cat: ['aniversario', 'regalos'],      
-        img: 'assets/catalogos/caja-rosas.jpeg?v=2',
-        badge: null
+        badge: null,
+        imagenes: []
       }
     ];
 
+    // ===== GESTIÓN DE IMÁGENES =====
+    
+    // Función para detectar cuántas imágenes tiene un producto
+    // Intenta cargar imágenes secuenciales hasta que falle
+    async function detectarImagenesProducto(productoId, maxIntentos = 10) {
+      const imagenes = [];
+      const extensiones = ['jpeg', 'jpg', 'png', 'webp'];
+      
+      // Siempre intentamos cargar la imagen principal primero
+      const imgPrincipal = `assets/catalogos/${productoId}.jpeg`;
+      imagenes.push(imgPrincipal);
+      
+      // Intentar cargar imágenes adicionales de la galería
+      for (let i = 2; i <= maxIntentos; i++) {
+        let imagenEncontrada = false;
+        
+        for (const ext of extensiones) {
+          const ruta = `assets/galerias/${productoId}/${i}.${ext}`;
+          
+          try {
+            const existe = await verificarImagen(ruta);
+            if (existe) {
+              imagenes.push(ruta);
+              imagenEncontrada = true;
+              break;
+            }
+          } catch (e) {
+            // Continuar con siguiente extensión
+          }
+        }
+        
+        if (!imagenEncontrada) break; // No hay más imágenes
+      }
+      
+      return imagenes;
+    }
+    
+    // Verificar si una imagen existe
+    function verificarImagen(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+    
+    // Inicializar catálogo con imágenes
+    async function inicializarCatalogo() {
+      for (let producto of CATALOGO) {
+        producto.imagenes = await detectarImagenesProducto(producto.id);
+        // Si no hay imágenes en galería, usar al menos la principal
+        if (producto.imagenes.length === 0) {
+          producto.imagenes = [`assets/catalogos/${producto.id}.jpeg`];
+        }
+      }
+      renderProducts();
+    }
+
+    // ===== CARRUSEL =====
+    const carruseles = new Map(); // Almacena instancias de carruseles
+    
+    class Carrusel {
+      constructor(elemento, imagenes, productoId) {
+        this.elemento = elemento;
+        this.imagenes = imagenes;
+        this.productoId = productoId;
+        this.currentIndex = 0;
+        this.track = elemento.querySelector('.carousel-track');
+        this.indicators = elemento.querySelectorAll('.carousel-dot');
+        this.counter = elemento.querySelector('.carousel-counter');
+        
+        this.init();
+      }
+      
+      init() {
+        // Actualizar contador
+        if (this.counter) {
+          this.counter.textContent = `1/${this.imagenes.length}`;
+        }
+        
+        // Auto-play si hay más de una imagen
+        if (this.imagenes.length > 1) {
+          this.startAutoPlay();
+          
+          // Pausar en hover
+          this.elemento.addEventListener('mouseenter', () => this.stopAutoPlay());
+          this.elemento.addEventListener('mouseleave', () => this.startAutoPlay());
+        }
+      }
+      
+      goToSlide(index) {
+        this.currentIndex = index;
+        this.track.style.transform = `translateX(-${index * 100}%)`;
+        
+        // Actualizar indicadores
+        this.indicators.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        
+        // Actualizar contador
+        if (this.counter) {
+          this.counter.textContent = `${index + 1}/${this.imagenes.length}`;
+        }
+      }
+      
+      next() {
+        const nextIndex = (this.currentIndex + 1) % this.imagenes.length;
+        this.goToSlide(nextIndex);
+      }
+      
+      prev() {
+        const prevIndex = (this.currentIndex - 1 + this.imagenes.length) % this.imagenes.length;
+        this.goToSlide(prevIndex);
+      }
+      
+      startAutoPlay() {
+        this.stopAutoPlay();
+        if (this.imagenes.length > 1) {
+          this.autoPlayInterval = setInterval(() => this.next(), 4000);
+        }
+      }
+      
+      stopAutoPlay() {
+        if (this.autoPlayInterval) {
+          clearInterval(this.autoPlayInterval);
+        }
+      }
+    }
+    
+    function initCarruseles() {
+      document.querySelectorAll('.carousel-container').forEach(container => {
+        const productoId = container.dataset.producto;
+        const producto = CATALOGO.find(p => p.id === productoId);
+        
+        if (producto && producto.imagenes.length > 0) {
+          const carrusel = new Carrusel(container, producto.imagenes, productoId);
+          carruseles.set(productoId, carrusel);
+        }
+      });
+    }
+
     // ===== LIGHTBOX =====
     let currentImageIndex = 0;
+    let currentProductIndex = 0;
     let lightboxOpen = false;
 
-    function openLightbox(index) {
-      currentImageIndex = index;
+    function openLightbox(productIndex, imageIndex = 0) {
+      currentProductIndex = productIndex;
+      const producto = CATALOGO[productIndex];
+      currentImageIndex = imageIndex;
+      
       const lightbox = document.getElementById('lightbox');
       const img = document.getElementById('lightboxImg');
       const counter = document.getElementById('lightboxCounter');
       const caption = document.getElementById('lightboxCaption');
       
-      const product = CATALOGO[index];
-      
-      img.src = product.img;
-      img.alt = product.titulo;
-      counter.textContent = `${index + 1} / ${CATALOGO.length}`;
-      caption.textContent = `${product.titulo} — $${product.precio} MXN`;
+      img.src = producto.imagenes[imageIndex];
+      img.alt = producto.titulo;
+      counter.textContent = `${imageIndex + 1} / ${producto.imagenes.length}`;
+      caption.textContent = `${producto.titulo} — $${producto.precio} MXN`;
       
       lightbox.classList.add('active');
       lightboxOpen = true;
       document.body.style.overflow = 'hidden';
       
-      trackEvent('Lightbox', 'Open', product.titulo);
+      trackEvent('Lightbox', 'Open', producto.titulo);
     }
 
     function closeLightbox(event) {
@@ -1475,19 +1742,18 @@
     }
 
     function changeImage(direction) {
+      const producto = CATALOGO[currentProductIndex];
       currentImageIndex += direction;
-      if (currentImageIndex < 0) currentImageIndex = CATALOGO.length - 1;
-      if (currentImageIndex >= CATALOGO.length) currentImageIndex = 0;
       
-      const product = CATALOGO[currentImageIndex];
+      if (currentImageIndex < 0) currentImageIndex = producto.imagenes.length - 1;
+      if (currentImageIndex >= producto.imagenes.length) currentImageIndex = 0;
+      
       const img = document.getElementById('lightboxImg');
       
       img.style.opacity = '0.5';
       setTimeout(() => {
-        img.src = product.img;
-        img.alt = product.titulo;
-        document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${CATALOGO.length}`;
-        document.getElementById('lightboxCaption').textContent = `${product.titulo} — $${product.precio} MXN`;
+        img.src = producto.imagenes[currentImageIndex];
+        document.getElementById('lightboxCounter').textContent = `${currentImageIndex + 1} / ${producto.imagenes.length}`;
         img.style.opacity = '1';
       }, 150);
     }
@@ -1567,12 +1833,41 @@
 
       container.innerHTML = filtered.map((p, index) => {
         const globalIndex = CATALOGO.indexOf(p);
+        const tieneCarrusel = p.imagenes.length > 1;
+        
+        // Generar slides del carrusel
+        const slidesHtml = p.imagenes.map((img, i) => `
+          <div class="carousel-slide" onclick="openLightbox(${globalIndex}, ${i})">
+            <img src="${img}" alt="${p.titulo} - Imagen ${i + 1}" loading="lazy" 
+                 onerror="this.src='https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600'">
+          </div>
+        `).join('');
+        
+        // Generar indicadores
+        const indicatorsHtml = p.imagenes.map((_, i) => `
+          <button class="carousel-dot ${i === 0 ? 'active' : ''}" 
+                  onclick="event.stopPropagation(); carruseles.get('${p.id}').goToSlide(${i})"
+                  aria-label="Imagen ${i + 1}"></button>
+        `).join('');
+        
         return `
           <article class="product-card" style="transition-delay: ${index * 50}ms">
-            <div class="product-image" onclick="openLightbox(${globalIndex})">
+            <div class="product-image">
+              <div class="carousel-container" data-producto="${p.id}">
+                <div class="carousel-track" style="transform: translateX(0)">
+                  ${slidesHtml}
+                </div>
+                
+                ${tieneCarrusel ? `
+                  <button class="carousel-btn prev" onclick="event.stopPropagation(); carruseles.get('${p.id}').prev()" aria-label="Anterior">‹</button>
+                  <button class="carousel-btn next" onclick="event.stopPropagation(); carruseles.get('${p.id}').next()" aria-label="Siguiente">›</button>
+                  <div class="carousel-indicators">${indicatorsHtml}</div>
+                  <div class="carousel-counter">1/${p.imagenes.length}</div>
+                ` : ''}
+              </div>
+              
               ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
-              <img src="${p.img}" alt="${p.titulo}" loading="lazy" 
-                   onerror="this.src='https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600'">
+              
               <div class="product-overlay">
                 <span class="zoom-hint">🔍 Click para ampliar</span>
               </div>
@@ -1592,6 +1887,7 @@
 
       setTimeout(() => {
         document.querySelectorAll('.product-card').forEach(card => card.classList.add('visible'));
+        initCarruseles();
       }, 100);
     }
 
@@ -1676,7 +1972,7 @@ ${data.mensaje ? `Mensaje: ${data.mensaje}` : ''}`;
       }, 10));
 
       // Init
-      renderProducts();
+      inicializarCatalogo();
       initFAQ();
       
       // Welcome toast
